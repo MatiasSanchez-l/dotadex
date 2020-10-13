@@ -5,7 +5,7 @@ require_once ("funciones.php");
 
 <h1 class="text-center text-light">AGREGAR HEROE</h1>
 
-<form class="container" method="POST" ENCTYPE="multipart/form-data" action="scriptPhp.php">
+<form class="container" method="POST" ENCTYPE="multipart/form-data" action="subirHeroeScript.php">
     <div class="form-group">
         <label class="text-light" for="idHeroe">ID del Heroe</label>
         <input type="text" class="form-control" id="idHeroe" name="idHeroe" placeholder="1">
