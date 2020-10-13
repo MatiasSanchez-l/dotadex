@@ -1,6 +1,6 @@
-# Dotadex 💻
+# Dotadex 💻🕹
 
-Este es un proyecto en el que se crea una base de datos con Heroes de dota y se muestran en una página web.
+Este es un proyecto en el que se crea una base de datos con Heroes de dota y se muestran en una página web.Se pueden agregar, modificar y eliminar dichos Heroes.
 ## Tecnologías:
 * PHP
 * PHPUNIT
@@ -8,6 +8,6 @@ Este es un proyecto en el que se crea una base de datos con Heroes de dota y se 
 * un poco de JQuery
 * BOOTSTRAP
 ## En este proyecto hay:
-* página inicio
-* página de agregar un heroe
-* página de información de heroe
+* Página inicio
+* Página de agregar un heroe
+* Página de información de heroe
