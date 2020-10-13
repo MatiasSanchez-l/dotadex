@@ -124,13 +124,12 @@ function funcionCambiarNombreImagen($nombreDeImagenSubida , $nombreDeImagenDesea
             return $nombreDeseadoDeLaImagen = $nombreDeImagenDeseado . ".jpeg";
             break;
         default:
-            header("Location: subirNuevoHeroe.php");
             echo("Error al subir imagen");
             exit();
     }
 }
 
-function funcionCantidadDatosACambiar($idHeroe, $nombreHeroe,$atributoHeroe, $tipoAtaqueHeroe, $imagenHeroe){
+function funcionCantidadDatosACambiar($idHeroe, $nombreHeroe,$atributoHeroe, $tipoAtaqueHeroe){
     $cantidadDatos = 0;
     if($idHeroe){
         $cantidadDatos++;
@@ -144,13 +143,10 @@ function funcionCantidadDatosACambiar($idHeroe, $nombreHeroe,$atributoHeroe, $ti
     if($tipoAtaqueHeroe){
         $cantidadDatos++;
     }
-    if($imagenHeroe){
-        $cantidadDatos++;
-    }
     return $cantidadDatos;
 }
 
-function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $imagenHeroe,$idHeroeAModificar)
+function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $idHeroeAModificar)
 {
     for ($i = 0; $i < $catidadDatosACambiar; $i++) {
         $conexionBDD = new BaseDeDatosClase();
@@ -159,7 +155,25 @@ function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atr
             $conexionBDD->aplicarUnQuery($sql);
             $idHeroe = null;
         } elseif ($nombreHeroe) {
+            $tabla = $conexionBDD->devolverDatos();
+            $img_url = null;
+            for ($i = 0; $i < sizeof($tabla); $i++) {
+                $dirireccion = $tabla[$i]["imagen_url"];
+                $idHeroe = $tabla[$i]["id"];
+                if ($idHeroe == $idHeroeAModificar) {
+                    $img_url =$dirireccion;
+                }
+            }
+            $sql1 = 'UPDATE heroes SET nombre="' . $nombreHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
+            $conexionBDD->aplicarUnQuery($sql1);
 
+            $extensionImagen = strtolower(pathinfo($img_url,PATHINFO_EXTENSION));
+            $nuevoNombreConUrl = 'recursos/heroesImg/'.$nombreHeroe .'.'. $extensionImagen;
+
+            $sql2 = 'UPDATE heroes SET imagen_url="' . $nuevoNombreConUrl . '" WHERE  heroes.id =' . $idHeroeAModificar;
+            $conexionBDD->aplicarUnQuery($sql2);
+
+            rename($img_url, $nuevoNombreConUrl);
             $nombreHeroe = null;
         } elseif ($atributoHeroe) {
             $sql = 'UPDATE heroes SET atributo="' . $atributoHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
@@ -169,34 +183,6 @@ function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atr
             $sql = 'UPDATE heroes SET tipo_ataque="' . $tipoAtaqueHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
             $conexionBDD->aplicarUnQuery($sql);
             $tipoAtaqueHeroe = null;
-        } elseif ($imagenHeroe) {
-            $direccionCarpetaImagenes = "recursos/heroesImg/";
-            $tabla = $conexionBDD->devolverDatos();
-
-            for ($i = 0; $i < sizeof($tabla); $i++) {
-                $dirireccion = $tabla[$i]["imagen_url"];
-                $idHeroe = $tabla[$i]["id"];
-                $nombreHeroe = $tabla[$i]["nombre"];
-                if ($idHeroe == $idHeroeAModificar) {
-                    if ($imagenHeroe["error"] > 0) {
-                        header("Location: index.php");
-                        exit();
-                    } else {
-                        unlink($dirireccion);
-                        $nombreDeImagenSubida = $imagenHeroe["name"];
-
-                        $nombreDeImagenCambiado = funcionCambiarNombreImagen($nombreDeImagenSubida, $nombreHeroe);
-
-                        $destino = $direccionCarpetaImagenes . $nombreDeImagenCambiado;
-
-                        move_uploaded_file(
-                            $imagenHeroe["tmp_name"],
-                            $destino
-                        );
-                }
-            }
-                $imagenHeroe = null;
-            }
         }
     }
 }
