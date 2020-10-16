@@ -33,10 +33,10 @@ class BaseDeDatosClase
     public function aplicarUnQuery($sql){
         $resultadoQuery = $this->conexion->query($sql);
         if($resultadoQuery){
-            mysqli_query($this->conexion,$sql);
+            $this->conexion->query($sql);
         }else{
-            echo $this->conexion->errno . " - " . $this->conexion->error;
-            echo $resultadoQuery;
+            echo $this->conexion->errno . " - " . $this->conexion->error ."<br>";
+            echo json_encode($resultadoQuery);
             echo "muerte";
             die;
         }
