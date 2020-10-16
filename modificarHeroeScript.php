@@ -1,40 +1,38 @@
 <?php
 require_once ("funciones.php");
 
+$conexionBDD = new BaseDeDatosClase();
+$tabla = $conexionBDD->devolverDatos();
 
-
-$idHeroe = isset($_POST["idHeroe"]) ? $_POST["idHeroe"] : null;
-$nombreHeroe = isset($_POST["nombreHeroe"]) ? $_POST["nombreHeroe"] : null;
-$atributoHeroe = isset($_POST["atributoHeroe"]) ? $_POST["atributoHeroe"] : null;
-$tipoAtaqueHeroe = isset($_POST["tipoAtaqueHeroe"]) ? $_POST["tipoAtaqueHeroe"] : null;
 $idHeroeAModificar = $_POST["botonModificar"];
 
-$catidadDatosACambiar = funcionCantidadDatosACambiar($idHeroe,
-                                                    $nombreHeroe,
-                                                    $atributoHeroe,
-                                                    $tipoAtaqueHeroe);
+for ($i = 0; $i < sizeof($tabla); $i++) {
+    $dirireccion = $tabla[$i]["imagen_url"];
+    $id = $tabla[$i]["id"];
+    $nombre = $tabla[$i]["nombre"];
+    $atributo = $tabla[$i]["atributo"];
+    $tipoAtaque = $tabla[$i]["tipo_ataque"];
+    if ($id == $idHeroeAModificar) {
+        $idHeroe = empty($_POST["idHeroe"]) ? $id : $_POST["idHeroe"];
+        $nombreHeroe = empty($_POST["nombreHeroe"]) ?  $nombre : $_POST["nombreHeroe"];
+        $atributoHeroe = isset($_POST["atributoHeroe"]) ? $_POST["atributoHeroe"] : $atributo;
+        $tipoAtaqueHeroe = isset($_POST["tipoAtaqueHeroe"]) ? $_POST["tipoAtaqueHeroe"] : $tipoAtaque;
 
-funcionCambiarDatos($catidadDatosACambiar,
-                    $idHeroe,
-                    $nombreHeroe,
-                    $atributoHeroe,
-                    $tipoAtaqueHeroe,
-                    $idHeroeAModificar);
+        funcionModificarDatos($idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $idHeroeAModificar);
+    }
+}
 
 if ($_FILES["archivoImagen"]["error"] > 0) {
     header("Location: index.php");
     exit();
 } else {
-    $conexionBDD = new BaseDeDatosClase();
-    $tabla = $conexionBDD->devolverDatos();
-    for ($i = 0; $i < sizeof($tabla); $i++) {
-        $dirireccion = $tabla[$i]["imagen_url"];
-        $idHeroe = $tabla[$i]["id"];
-        $nombreHeroe = $tabla[$i]["nombre"];
-        if ($idHeroe == $idHeroeAModificar) {
-            $nombreDeImagenSubida = $_FILES["archivoImagen"]["name"];
-
-            $nombreDeImagenCambiado = funcionCambiarNombreImagen($nombreDeImagenSubida, $nombreHeroe);
+    $conexionBDD2 = new BaseDeDatosClase();
+    $tabla2 = $conexionBDD2->devolverDatos();
+    for ($i = 0; $i < sizeof($tabla2); $i++) {
+        $dirireccion = $tabla2[$i]["imagen_url"];
+        $id= $tabla2[$i]["id"];
+        $nombre = $tabla2[$i]["nombre"];
+        if ($id == $idHeroeAModificar) {
 
             move_uploaded_file(
                 $_FILES["archivoImagen"]["tmp_name"],

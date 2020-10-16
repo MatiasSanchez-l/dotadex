@@ -37,78 +37,7 @@ function funcionMostrarImagenes(){
                 </div>
             </div>';
     }
-    echo '<div class="modal fade" id="eliminarHeroeModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content" style="border: 1px solid #3e4042; background-color:#252627;">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-light" id="staticBackdropLabel">Eliminar Heroe</h5>
-                                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                        </div>
-                        <div class="modal-body text-light">
-                            ¿Seguro que desea eliminar el heroe de la base de datos?
-                        </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-verde" data-dismiss="modal">Volver</button>
-                                <form method="GET" action="eliminarHeroeScript.php">
-                                    <button class="btn btn-rojo" id="botonEliminar" name="botonEliminar">Eliminar</button>
-                                </form>
-                            </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="modificarHeroeModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content" style="border: 1px solid #3e4042; background-color:#252627;">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-light" id="staticBackdropLabel">Modificar Heroe</h5>
-                            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form class="container" method="POST" ENCTYPE="multipart/form-data" action="modificarHeroeScript.php">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                   <label class="text-light" for="idHeroe">ID del Heroe</label>
-                                   <input type="text" class="form-control" id="idHeroe" name="idHeroe" placeholder="1">
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-light" for="nombreHeroe">Nombre del Heroe</label>
-                                    <input type="text" class="form-control" id="nombreHeroe" name="nombreHeroe" placeholder="Axe">
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label class="text-light" for="atributoHeroe">Atributo principal</label>
-                                        <select class="form-control" id="atributoHeroe" name="atributoHeroe">
-                                            <option disabled selected>Tipo de Atributo</option>
-                                            <option value="Agilidad">Agilidad</option>
-                                            <option value="Fuerza">Fuerza</option>
-                                            <option value="Inteligencia">Inteligencia</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="text-light" for="tipoAtaqueHeroe">Tipo de ataque</label>
-                                        <select class="form-control" id="tipoAtaqueHeroe" name="tipoAtaqueHeroe">
-                                            <option disabled selected>Tipo de Ataque</option>
-                                            <option>Cuerpo a cuerpo</option>
-                                            <option>Distancia</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="text-light" for="archivoImagen">Elegir imagen</label>
-                                    <input type="file" class="form-control-file text-light" id="archivoImagen" name="archivoImagen">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-verde" data-dismiss="modal">Volver</button>
-                                <button type="submit" class="btn btn-azul" id="botonModificar" name="botonModificar">Modificar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>';
+    echo require_once ('recursos/html/modalHtml.html');
 }
 
 function funcionCambiarNombreImagen($nombreDeImagenSubida , $nombreDeImagenDeseado){
@@ -129,41 +58,22 @@ function funcionCambiarNombreImagen($nombreDeImagenSubida , $nombreDeImagenDesea
     }
 }
 
-function funcionCantidadDatosACambiar($idHeroe, $nombreHeroe,$atributoHeroe, $tipoAtaqueHeroe){
-    $cantidadDatos = 0;
-    if($idHeroe){
-        $cantidadDatos++;
-    }
-    if($nombreHeroe){
-        $cantidadDatos++;
-    }
-    if($atributoHeroe){
-        $cantidadDatos++;
-    }
-    if($tipoAtaqueHeroe){
-        $cantidadDatos++;
-    }
-    return $cantidadDatos;
-}
+function funcionModificarDatos($idHeroe,
+                               $nombreHeroe,
+                               $atributoHeroe,
+                               $tipoAtaqueHeroe,
+                               $idHeroeAModificar){
 
-function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $idHeroeAModificar)
-{
-    for ($i = 0; $i < $catidadDatosACambiar; $i++) {
-        $conexionBDD = new BaseDeDatosClase();
-        if ($idHeroe) {
-            $sql = 'UPDATE heroes SET id=' . $idHeroe . ' WHERE  heroes.id =' . $idHeroeAModificar;
-            $conexionBDD->aplicarUnQuery($sql);
-            $idHeroe = null;
-        } elseif ($nombreHeroe) {
-            $tabla = $conexionBDD->devolverDatos();
-            $img_url = null;
-            for ($i = 0; $i < sizeof($tabla); $i++) {
-                $dirireccion = $tabla[$i]["imagen_url"];
-                $idHeroe = $tabla[$i]["id"];
-                if ($idHeroe == $idHeroeAModificar) {
-                    $img_url =$dirireccion;
-                }
-            }
+    $conexionBDD = new BaseDeDatosClase();
+    $tabla = $conexionBDD->devolverDatos();
+
+    for ($i = 0; $i < sizeof($tabla); $i++) {
+        $dirireccion = $tabla[$i]["imagen_url"];
+        $id= $tabla[$i]["id"];
+        $nombre = $tabla[$i]["nombre"];
+        if ($id == $idHeroeAModificar and $nombreHeroe != $nombre) {
+            $img_url =$dirireccion;
+
             $sql1 = 'UPDATE heroes SET nombre="' . $nombreHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
             $conexionBDD->aplicarUnQuery($sql1);
 
@@ -174,15 +84,13 @@ function funcionCambiarDatos($catidadDatosACambiar, $idHeroe, $nombreHeroe, $atr
             $conexionBDD->aplicarUnQuery($sql2);
 
             rename($img_url, $nuevoNombreConUrl);
-            $nombreHeroe = null;
-        } elseif ($atributoHeroe) {
-            $sql = 'UPDATE heroes SET atributo="' . $atributoHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
-            $conexionBDD->aplicarUnQuery($sql);
-            $atributoHeroe = null;
-        } elseif ($tipoAtaqueHeroe) {
-            $sql = 'UPDATE heroes SET tipo_ataque="' . $tipoAtaqueHeroe . '" WHERE  heroes.id =' . $idHeroeAModificar;
-            $conexionBDD->aplicarUnQuery($sql);
-            $tipoAtaqueHeroe = null;
         }
     }
+
+
+    $sql = 'UPDATE heroes SET id=' . $idHeroe . ',
+                atributo="' . $atributoHeroe . '",
+                tipo_ataque="' . $tipoAtaqueHeroe . '"
+                WHERE heroes.id =' . $idHeroeAModificar;
+    $conexionBDD->aplicarUnQuery($sql);
 }
