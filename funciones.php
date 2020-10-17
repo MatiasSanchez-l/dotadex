@@ -1,5 +1,6 @@
 <?php
 require_once ("BaseDeDatosClase.php");
+
 function funcionMostrarImagenes(){
     $conexionBDD = new BaseDeDatosClase();
     $tabla = $conexionBDD->devolverDatos();
@@ -26,9 +27,9 @@ function funcionMostrarImagenes(){
         }
 
         echo'<div class="col-md-4 mb-2">
-                <img class= "" style="width:100%" src="'. $dirireccion . '" alt="atributo"/>
+                <img class= "" style="width:100%; max-height: 10.2em" src="'. $dirireccion . '" alt="atributo"/>
                 <div class="d-flex justify-content-between align-items-center mx-2">
-                    <h3 class="text-light ">'. $nombreHeroe . '</h3>'
+                    <h4 class="text-light ">'. $nombreHeroe . '</h4>'
                     .$imagenAtributo.
                 '</div>
                 <div class="text-center">
@@ -93,4 +94,113 @@ function funcionModificarDatos($idHeroe,
                 tipo_ataque="' . $tipoAtaqueHeroe . '"
                 WHERE heroes.id =' . $idHeroeAModificar;
     $conexionBDD->aplicarUnQuery($sql);
+}
+
+function funcionHeroeABuscar($datoABuscar){
+    if(empty($datoABuscar)){
+        echo funcionMostrarImagenes();
+        return;
+    }else{
+        $conexionBDD = new BaseDeDatosClase();
+        $tabla = $conexionBDD->devolverDatos();
+
+        $mostrarTodosLosHeroes = true;
+
+        $fuerza= "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png/revision/latest/scale-to-width-down/30?cb=20180323111829";
+        $agilidad = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png/revision/latest/scale-to-width-down/30?cb=20180323111717";
+        $inteligencia= "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png/revision/latest/scale-to-width-down/30?cb=20180323111753";
+
+        for ($i = 0; $i < sizeof($tabla); $i++) {
+            $direccion = $tabla[$i]["imagen_url"];
+            $id = $tabla[$i]["id"];
+            $nombre = $tabla[$i]["nombre"];
+            $atributo = $tabla[$i]["atributo"];
+            $tipoAtaque = $tabla[$i]["tipo_ataque"];
+            if (strtolower($datoABuscar) == strtolower($nombre)) {
+
+                switch (strtolower($atributo)){
+                    case "fuerza":
+                        $imagenAtributo= '<img src="'.$fuerza.'" title="fuerza" alt="atributo">';
+                        break;
+                    case "agilidad":
+                        $imagenAtributo = '<img src="'.$agilidad.'" title="agilidad" alt="atributo">';
+                        break;
+                    case "inteligencia":
+                        $imagenAtributo = '<img src="'.$inteligencia.'" title="inteligencia" alt="atributo">';
+                        break;
+                }
+
+                echo'<div class="col-md-4 mb-2">
+                <img class= "" style="width:100%; max-height: 10.2em" src="'. $direccion . '" alt="atributo"/>
+                <div class="d-flex justify-content-between align-items-center mx-2">
+                    <h4 class="text-light ">'. $nombre . '</h4>'
+                    .$imagenAtributo.
+                    '</div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-azul botonModificar" data-toggle="modal" data-target="#modificarHeroeModal" data-id="'.$id.'">Modificar</button>
+                    <button type="button" class="btn btn-rojo botonEliminar" data-toggle="modal" data-target="#eliminarHeroeModal" data-id="'.$id.'">Eliminar</button> 
+                </div>
+            </div>';
+                $mostrarTodosLosHeroes= false;
+            }elseif (strtolower($datoABuscar) == strtolower($atributo)){
+                switch (strtolower($atributo)){
+                    case "fuerza":
+                        $imagenAtributo= '<img src="'.$fuerza.'" title="fuerza" alt="atributo">';
+                        break;
+                    case "agilidad":
+                        $imagenAtributo = '<img src="'.$agilidad.'" title="agilidad" alt="atributo">';
+                        break;
+                    case "inteligencia":
+                        $imagenAtributo = '<img src="'.$inteligencia.'" title="inteligencia" alt="atributo">';
+                        break;
+                }
+
+                echo'<div class="col-md-4 mb-2">
+                <img class= "" style="width:100%; max-height: 10.2em" src="'. $direccion . '" alt="atributo"/>
+                <div class="d-flex justify-content-between align-items-center mx-2">
+                    <h4 class="text-light ">'. $nombre . '</h4>'
+                    .$imagenAtributo.
+                    '</div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-azul botonModificar" data-toggle="modal" data-target="#modificarHeroeModal" data-id="'.$id.'">Modificar</button>
+                    <button type="button" class="btn btn-rojo botonEliminar" data-toggle="modal" data-target="#eliminarHeroeModal" data-id="'.$id.'">Eliminar</button> 
+                </div>
+            </div>';
+                $mostrarTodosLosHeroes= false;
+            }elseif(strtolower($datoABuscar) == strtolower($tipoAtaque)){
+                switch (strtolower($atributo)){
+                    case "fuerza":
+                        $imagenAtributo= '<img src="'.$fuerza.'" title="fuerza" alt="atributo">';
+                        break;
+                    case "agilidad":
+                        $imagenAtributo = '<img src="'.$agilidad.'" title="agilidad" alt="atributo">';
+                        break;
+                    case "inteligencia":
+                        $imagenAtributo = '<img src="'.$inteligencia.'" title="inteligencia" alt="atributo">';
+                        break;
+                }
+
+                echo'<div class="col-md-4 mb-2">
+                <img class= "" style="width:100%; max-height: 10.2em" src="'. $direccion . '" alt="atributo"/>
+                <div class="d-flex justify-content-between align-items-center mx-2">
+                    <h4 class="text-light ">'. $nombre . '</h4>'
+                    .$imagenAtributo.
+                    '</div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-azul botonModificar" data-toggle="modal" data-target="#modificarHeroeModal" data-id="'.$id.'">Modificar</button>
+                    <button type="button" class="btn btn-rojo botonEliminar" data-toggle="modal" data-target="#eliminarHeroeModal" data-id="'.$id.'">Eliminar</button> 
+                </div>
+            </div>';
+                $mostrarTodosLosHeroes= false;
+            }
+        }
+
+        if($mostrarTodosLosHeroes){
+            echo funcionMostrarImagenes();
+        }else{
+            echo require_once ('recursos/html/modalHtml.html');
+        }
+    }
+
+
 }
