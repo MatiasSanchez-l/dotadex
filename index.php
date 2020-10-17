@@ -3,10 +3,10 @@ require_once ("funciones.php");
 require_once ("header.php");
 ?>
 <main>
-    <form class="form-inline justify-content-center my-5">
+    <form action="heroeBuscado.php" class="form-inline justify-content-center my-5">
         <div class="form-group col-sm-10 mb-2">
-            <label for="heroeABuscar" class="sr-only">Ingrese nombre del Heroe, atributo o número</label>
-            <input type="password" class="form-control" style="width: 100%" id="heroeABuscar" name="heroeABuscar" placeholder="Ingrese nombre del Heroe, atributo o número">
+            <label for="nombreABuscar" class="sr-only">Ingrese nombre del Heroe, atributo o tipo de ataque</label>
+            <input type="text" class="form-control" style="width: 100%" id="nombreABuscar" name="nombreABuscar" placeholder="Ingrese nombre del Heroe, atributo o tipo de ataque">
         </div>
         <button type="submit" class="btn btn-azul mb-2">Buscar</button>
     </form>
@@ -23,22 +23,8 @@ require_once ("header.php");
             ?>
         </div>
     </div>
-    <!-- Optional JavaScript -->
-    <script src="recursos/js/jquery-3.5.js"></script>
-    <script src="recursos/js/script.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
-</main>
-<footer>
 
-</footer>
-</body>
-</html>
+</main>
+<?php
+require_once ("footer.php");
+
