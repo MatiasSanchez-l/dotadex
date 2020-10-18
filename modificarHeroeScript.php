@@ -12,13 +12,15 @@ for ($i = 0; $i < sizeof($tabla); $i++) {
     $nombre = $tabla[$i]["nombre"];
     $atributo = $tabla[$i]["atributo"];
     $tipoAtaque = $tabla[$i]["tipo_ataque"];
+    $historia = $tabla[$i]["historia"];
     if ($id == $idHeroeAModificar) {
         $idHeroe = empty($_POST["idHeroe"]) ? $id : $_POST["idHeroe"];
         $nombreHeroe = empty($_POST["nombreHeroe"]) ?  $nombre : $_POST["nombreHeroe"];
         $atributoHeroe = isset($_POST["atributoHeroe"]) ? $_POST["atributoHeroe"] : $atributo;
         $tipoAtaqueHeroe = isset($_POST["tipoAtaqueHeroe"]) ? $_POST["tipoAtaqueHeroe"] : $tipoAtaque;
+        $historiaHeroe = isset($_POST["historiaHeroe"]) ? $_POST["historiaHeroe"] : $historia;
 
-        funcionModificarDatos($idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $idHeroeAModificar);
+        funcionModificarDatos($idHeroe, $nombreHeroe, $atributoHeroe, $tipoAtaqueHeroe, $historiaHeroe, $idHeroeAModificar);
     }
 }
 

@@ -10,6 +10,14 @@ require_once ("header.php");
         </div>
         <button type="submit" class="btn btn-azul mb-2">Buscar</button>
     </form>
+    <div class="text-center">
+        <?php
+            $error = $_GET["errorBuscarPersonaje"];
+            if($error){
+                echo '<h5 class="text-danger">Error al encontrar Heroe</h5>';
+            }
+        ?>
+    </div>
     <h1 class="text-center text-light ">HEROES</h1>
     <div class="text-center">
         <a href="subirNuevoHeroe.php">
@@ -23,7 +31,6 @@ require_once ("header.php");
             ?>
         </div>
     </div>
-
 </main>
 <?php
 require_once ("footer.php");

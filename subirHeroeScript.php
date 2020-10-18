@@ -10,6 +10,7 @@ $nombreHeroe = $_POST["nombreHeroe"];
 $idHeroe = $_POST["idHeroe"];
 $atributoHeroe = $_POST["atributoHeroe"];
 $tipoAtaqueHeroe = $_POST["tipoAtaqueHeroe"];
+$hitoriaHeroe = $_POST["historiaHeroe"];
 
 
 if ($_FILES["archivoImagen"]["error"] > 0) {
@@ -27,8 +28,8 @@ if ($_FILES["archivoImagen"]["error"] > 0) {
         $destino
     );
 
-    $sql = "INSERT INTO heroes(id, nombre, atributo, tipo_ataque, imagen_url) 
-            VALUES (".$idHeroe.",'".$nombreHeroe."','".$atributoHeroe."','".$tipoAtaqueHeroe."','".$destino."')";
+    $sql = "INSERT INTO heroes(id, nombre, atributo, tipo_ataque, historia, imagen_url) 
+            VALUES (".$idHeroe.",'".$nombreHeroe."','".$atributoHeroe."','".$tipoAtaqueHeroe."','".$hitoriaHeroe."','".$destino."')";
 
     $conexionBDD->aplicarUnQuery($sql);
     header("Location: index.php");
