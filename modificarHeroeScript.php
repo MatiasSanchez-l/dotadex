@@ -1,7 +1,9 @@
 <?php
 require_once ("funciones.php");
 
-$conexionBDD = new BaseDeDatosClase();
+$archivoConfig = "recursos/config.ini";
+$configuracion = parse_ini_file($archivoConfig, true);
+$conexionBDD = new BaseDeDatosClase($configuracion);
 $tabla = $conexionBDD->devolverDatos();
 
 $idHeroeAModificar = $_POST["botonModificar"];
@@ -28,7 +30,7 @@ if ($_FILES["archivoImagen"]["error"] > 0) {
     header("Location: index.php");
     exit();
 } else {
-    $conexionBDD2 = new BaseDeDatosClase();
+    $conexionBDD2 = new BaseDeDatosClase($configuracion);
     $tabla2 = $conexionBDD2->devolverDatos();
     for ($i = 0; $i < sizeof($tabla2); $i++) {
         $dirireccion = $tabla2[$i]["imagen_url"];

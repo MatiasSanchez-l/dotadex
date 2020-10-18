@@ -2,7 +2,9 @@
 require_once ("funciones.php");
 require_once ("BaseDeDatosClase.php");
 
-$conexionBDD = new BaseDeDatosClase();
+$archivoConfig = "recursos/config.ini";
+$configuracion = parse_ini_file($archivoConfig, true);
+$conexionBDD = new BaseDeDatosClase($configuracion);
 
 $direccionCarpetaImagenes = "recursos/heroesImg/";
 

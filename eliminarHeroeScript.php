@@ -1,7 +1,9 @@
 <?php
 require_once ('BaseDeDatosClase.php');
 echo "ELIMINAR";
-$conexionBDD = new BaseDeDatosClase();
+$archivoConfig = "recursos/config.ini";
+$configuracion = parse_ini_file($archivoConfig, true);
+$conexionBDD = new BaseDeDatosClase($configuracion);
 $idHeroeAEliminar = $_GET["botonEliminar"];
 $tabla = $conexionBDD->devolverDatos();
 

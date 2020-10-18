@@ -9,8 +9,10 @@ include("../funciones.php");
 class Test extends TestCase
 {
     public function testProbarConexionABaseDeDatos(){
+        $archivoConfig = "../recursos/config.ini";
+        $configuracion = parse_ini_file($archivoConfig, true);
 
-        $BDDConexion = new BaseDeDatosClase();
+        $BDDConexion = new BaseDeDatosClase($configuracion);
 
         $resultado = $BDDConexion->probarConexion();
 

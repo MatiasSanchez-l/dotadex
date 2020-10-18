@@ -2,7 +2,9 @@
 require_once ("BaseDeDatosClase.php");
 
 function funcionMostrarImagenes(){
-    $conexionBDD = new BaseDeDatosClase();
+    $archivoConfig = "recursos/config.ini";
+    $configuracion = parse_ini_file($archivoConfig, true);
+    $conexionBDD = new BaseDeDatosClase($configuracion);
     $tabla = $conexionBDD->devolverDatos();
 
     for($i = 0; $i<sizeof($tabla); $i++)
@@ -73,8 +75,9 @@ function funcionModificarDatos($idHeroe,
                                $tipoAtaqueHeroe,
                                $historiaHeroe,
                                $idHeroeAModificar){
-
-    $conexionBDD = new BaseDeDatosClase();
+    $archivoConfig = "recursos/config.ini";
+    $configuracion = parse_ini_file($archivoConfig, true);
+    $conexionBDD = new BaseDeDatosClase($configuracion);
     $tabla = $conexionBDD->devolverDatos();
 
     for ($i = 0; $i < sizeof($tabla); $i++) {
@@ -111,7 +114,9 @@ function funcionHeroeABuscar($datoABuscar){
         header('Location: index.php?errorBuscarPersonaje=true');
         die();
     }else{
-        $conexionBDD = new BaseDeDatosClase();
+        $archivoConfig = "recursos/config.ini";
+        $configuracion = parse_ini_file($archivoConfig, true);
+        $conexionBDD = new BaseDeDatosClase($configuracion);
         $tabla = $conexionBDD->devolverDatos();
 
         $mostrarTodosLosHeroes = true;

@@ -2,7 +2,10 @@
 require_once ("funciones.php");
 require_once ("header.php");
 $idHeroeAMostrar = $_GET["idHeroeAMostrar"];
-$conexionBDD = new BaseDeDatosClase();
+
+$archivoConfig = "recursos/config.ini";
+$configuracion = parse_ini_file($archivoConfig, true);
+$conexionBDD = new BaseDeDatosClase($configuracion);
 $tabla = $conexionBDD->devolverDatos();
 
 for ($i = 0; $i < sizeof($tabla); $i++) {

@@ -9,11 +9,12 @@ class BaseDeDatosClase
     private $clave;
     private $conexion;
 
-    public function __Construct(){
-        $this->host = "localhost:3307";
-        $this->bddNombre = "dotadex-sanchez-matias";
-        $this->usuario = "root";
-        $this->clave = null;
+    public function __Construct($configuracion){
+
+        $this->host = $configuracion["bd"]["host"];
+        $this->bddNombre = $configuracion["bd"]["basededatos"];
+        $this->usuario = $configuracion["bd"]["usuario"];
+        $this->clave = $configuracion["bd"]["password"];
 
         $this->conexion = new mysqli($this->host,$this->usuario,$this->clave,$this->bddNombre);
     }
@@ -53,12 +54,4 @@ class BaseDeDatosClase
         }
         return $tabla;
     }
-
-   /* public function conectar(){
-        return mysqli_connect($this->host,
-            $this->usuario,
-            $this->pass,
-            "visitas",
-            $this->puerto);
-    }*/
 }
