@@ -36,15 +36,16 @@ class BaseDeDatosClase
         if($resultadoQuery){
             $this->conexion->query($sql);
         }else{
-            echo $this->conexion->errno . " - " . $this->conexion->error ."<br>";
+            /*echo $this->conexion->errno . " - " . $this->conexion->error ."<br>";
             echo json_encode($resultadoQuery);
-            echo "muerte";
-            die;
+            echo "muerte";*/
+            header("Location: index.php?errorQuery=true");
+            exit();
         }
     }
 
-    public function devolverDatos(){
-        $sql = "SELECT * FROM heroes";
+    public function devolverDatos($tablaAdevolcer){
+        $sql = "SELECT * FROM ".$tablaAdevolcer;
         $resultadoQuery = $this->conexion->query($sql);
 
         $tabla = array();

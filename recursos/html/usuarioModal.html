@@ -1,0 +1,58 @@
+<div class="modal fade" id="ingresarUsuarioModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: 1px solid #3e4042; background-color:#252627;">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="staticBackdropLabel">Ingresar</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <form action="seccion.php" method="POST" class="d-flex justify-content-end">
+                    <div class="modal-body text-light">
+                        <div class="form-group">
+                            <label for="nombreUsuarioIngresado">Nombre usuario</label>
+                            <input type="text" class="form-control" id="nombreUsuarioIngresado" name="nombreUsuarioIngresado" placeholder="Nombre usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="claveUsuarioIngresado" >Contraseña</label>
+                            <input type="password" class="form-control" id="claveUsuarioIngresado" name="claveUsuarioIngresado" placeholder="Contraseña">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-verde" data-dismiss="modal">Volver</button>
+                            <button type="submit" class="btn btn-azul">INGRESAR</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="registrarUsuarioModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border: 1px solid #3e4042; background-color:#252627;">
+            <div class="modal-header">
+                <h5 class="modal-title text-light" id="staticBackdropLabel">Registrar</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="registrarUsuario.php" method="POST" class="d-flex justify-content-end">
+                <div class="modal-body text-light">
+                    <div class="form-group">
+                        <label for="nombreUsuarioRegistrado">Nombre usuario</label>
+                        <input type="text" class="form-control" id="nombreUsuarioRegistrado" name="nombreUsuarioRegistrado" placeholder="Nombre usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="claveUsuarioRegistrado">Contraseña</label>
+                        <input type="password" class="form-control" id="claveUsuarioRegistrado" name="claveUsuarioRegistrado" placeholder="Contraseña">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-verde" data-dismiss="modal">Volver</button>
+                        <button type="submit" class="btn btn-azul">Registrarse</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

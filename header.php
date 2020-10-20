@@ -19,20 +19,33 @@
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <form class="d-flex justify-content-end">
-                    <div class="col-sm-3 my-1 p-2">
-                        <label class="sr-only" for="nombreUsuario">Nombre usuario</label>
-                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre usuario">
-                    </div>
-                    <div class="col-sm-3 my-1 p-2">
-                        <label class="sr-only" for="contraseniaUsuario">Contraseña</label>
-                        <input type="text" class="form-control" id="contraseniaUsuario" name="contraseniaUsuario" placeholder="Contraseña">
-                    </div>
-                    <div class="col-auto my-1 p-2">
-                        <button type="submit" class="btn btn-verde">INGRESAR</button>
-                    </div>
-                </form>
+                <?php
+                session_start();
+                if(isset($_SESSION["logeado"]) == 1){
+                    echo '<a class="col-auto my-1 p-2" href="seccion.php?cerrarSeccion=true">
+                            <button class="btn btn-rojo">Cerrar seccion</button>
+                          </a>';
+                }else{
+                    echo'<div class="d-flex justify-content-end">
+                            <div class="col-sm-auto my-1 p-2">
+                                <button type="button" class="btn btn-azul" data-toggle="modal" data-target="#ingresarUsuarioModal">Ingresar</button>
+                            </div>
+                            <div class="col-auto my-1 p-2">
+                                <button type="button" class="btn btn-verde" data-toggle="modal" data-target="#registrarUsuarioModal">Registrarse</button>
+                            </div>
+                         </div>';
+                    include_once ('recursos/html/usuarioModal.html');
+                }?>
+
             </div>
         </nav>
     </div>
 </header>
+<main>
+    <form action="heroeBuscado.php" class="form-inline justify-content-center my-4">
+        <div class="form-group col-sm-10">
+            <label for="nombreABuscar" class="sr-only">Ingrese nombre del Heroe, atributo o tipo de ataque</label>
+            <input type="text" class="form-control" style="width: 100%" id="nombreABuscar" name="nombreABuscar" placeholder="Ingrese nombre del Heroe, atributo o tipo de ataque">
+        </div>
+        <button type="submit" class="btn btn-azul">Buscar</button>
+    </form>

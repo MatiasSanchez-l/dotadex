@@ -34,6 +34,6 @@ if ($_FILES["archivoImagen"]["error"] > 0) {
             VALUES (".$idHeroe.",'".$nombreHeroe."','".$atributoHeroe."','".$tipoAtaqueHeroe."','".$hitoriaHeroe."','".$destino."')";
 
     $conexionBDD->aplicarUnQuery($sql);
-    header("Location: index.php");
+    header("Location: index.php?registrarHeroe=true");
     exit();
 }

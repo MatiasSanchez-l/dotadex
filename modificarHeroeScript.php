@@ -4,7 +4,7 @@ require_once ("funciones.php");
 $archivoConfig = "recursos/config.ini";
 $configuracion = parse_ini_file($archivoConfig, true);
 $conexionBDD = new BaseDeDatosClase($configuracion);
-$tabla = $conexionBDD->devolverDatos();
+$tabla = $conexionBDD->devolverDatos("heroes");
 
 $idHeroeAModificar = $_POST["botonModificar"];
 
@@ -27,11 +27,11 @@ for ($i = 0; $i < sizeof($tabla); $i++) {
 }
 
 if ($_FILES["archivoImagen"]["error"] > 0) {
-    header("Location: index.php");
+    header("Location: index.php?modificarHeroe=true");
     exit();
 } else {
     $conexionBDD2 = new BaseDeDatosClase($configuracion);
-    $tabla2 = $conexionBDD2->devolverDatos();
+    $tabla2 = $conexionBDD2->devolverDatos("heroes");
     for ($i = 0; $i < sizeof($tabla2); $i++) {
         $dirireccion = $tabla2[$i]["imagen_url"];
         $id= $tabla2[$i]["id"];
@@ -45,5 +45,5 @@ if ($_FILES["archivoImagen"]["error"] > 0) {
         }
     }
 }
-header("Location: index.php");
+header("Location: index.php?modificarHeroe=true");
 exit();

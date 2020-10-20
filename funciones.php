@@ -5,7 +5,7 @@ function funcionMostrarImagenes(){
     $archivoConfig = "recursos/config.ini";
     $configuracion = parse_ini_file($archivoConfig, true);
     $conexionBDD = new BaseDeDatosClase($configuracion);
-    $tabla = $conexionBDD->devolverDatos();
+    $tabla = $conexionBDD->devolverDatos("heroes");
 
     for($i = 0; $i<sizeof($tabla); $i++)
     {
@@ -40,15 +40,18 @@ function funcionHtmlImagenes($id, $direccion, $nombre, $atributo){
                 <a href="detalleHeroe.php?idHeroeAMostrar='.$id.'">
                     <img style="width:100%; max-height: 10.2em;" src="'. $direccion . '" alt="heroe"/>
                 </a>
-                <div class="d-flex justify-content-between align-items-center mx-2">
-                    <h4 class="text-light ">'. $nombre . '</h4>'
-        .$imagenAtributo.
-        '</div>
-                <div class="text-center">
-                    <button type="button" class="btn btn-azul botonModificar" data-toggle="modal" data-target="#modificarHeroeModal" data-id="'.$id.'">Modificar</button>
-                    <button type="button" class="btn btn-rojo botonEliminar" data-toggle="modal" data-target="#eliminarHeroeModal" data-id="'.$id.'">Eliminar</button> 
-                </div>
-            </div>';
+                <div class="d-flex justify-content-between align-items-center my-2">
+                    <h4 class="text-light ">'. $nombre . '</h4>' .$imagenAtributo. '
+                </div>';
+    if(isset($_SESSION["logeado"]) == 1){
+        echo'<div class="text-center">
+                <button type="button" class="btn btn-azul botonModificar" data-toggle="modal" data-target="#modificarHeroeModal" data-id="' . $id . '">Modificar</button>
+                <button type="button" class="btn btn-rojo botonEliminar" data-toggle="modal" data-target="#eliminarHeroeModal" data-id="' . $id . '">Eliminar</button>
+             </div>
+           </div>';
+    }else{
+        echo '</div>';
+    }
 }
 
 function funcionCambiarNombreImagen($nombreDeImagenSubida , $nombreDeImagenDeseado){
@@ -78,7 +81,7 @@ function funcionModificarDatos($idHeroe,
     $archivoConfig = "recursos/config.ini";
     $configuracion = parse_ini_file($archivoConfig, true);
     $conexionBDD = new BaseDeDatosClase($configuracion);
-    $tabla = $conexionBDD->devolverDatos();
+    $tabla = $conexionBDD->devolverDatos("heroes");
 
     for ($i = 0; $i < sizeof($tabla); $i++) {
         $dirireccion = $tabla[$i]["imagen_url"];
@@ -117,7 +120,7 @@ function funcionHeroeABuscar($datoABuscar){
         $archivoConfig = "recursos/config.ini";
         $configuracion = parse_ini_file($archivoConfig, true);
         $conexionBDD = new BaseDeDatosClase($configuracion);
-        $tabla = $conexionBDD->devolverDatos();
+        $tabla = $conexionBDD->devolverDatos("heroes");
 
         $mostrarTodosLosHeroes = true;
 
@@ -147,8 +150,8 @@ function funcionHeroeABuscar($datoABuscar){
         }
 
         if($mostrarTodosLosHeroes){
-            header('Location: index.php?errorBuscarPersonaje=true');
-            die();
+            header('Location: index.php?errorBuscarHeroe=true');
+            exit();
         }else{
             echo require_once ('recursos/html/modalHtml.html');
         }

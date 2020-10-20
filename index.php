@@ -2,19 +2,30 @@
 require_once ("funciones.php");
 require_once ("header.php");
 ?>
-<main>
-    <form action="heroeBuscado.php" class="form-inline justify-content-center my-5">
-        <div class="form-group col-sm-10 mb-2">
-            <label for="nombreABuscar" class="sr-only">Ingrese nombre del Heroe, atributo o tipo de ataque</label>
-            <input type="text" class="form-control" style="width: 100%" id="nombreABuscar" name="nombreABuscar" placeholder="Ingrese nombre del Heroe, atributo o tipo de ataque">
-        </div>
-        <button type="submit" class="btn btn-azul mb-2">Buscar</button>
-    </form>
-    <div class="text-center">
+
+    <div class="text-center mb-sm-5">
         <?php
-            $error = $_GET["errorBuscarPersonaje"];
-            if($error){
+            $errorBuscar =isset( $_GET["errorBuscarHeroe"]) ? $_GET["errorBuscarHeroe"] : false;
+            $exitoRegistro =isset( $_GET["registrarHeroe"]) ? $_GET["registrarHeroe"] : false;
+            $exitoModificar =isset( $_GET["modificarHeroe"]) ? $_GET["modificarHeroe"] : false;
+            $exitoEliminar =isset( $_GET["eliminarHeroe"]) ? $_GET["eliminarHeroe"] : false;
+            $errorQuery = isset( $_GET["errorQuery"]) ? $_GET["errorQuery"] : false;
+            $usuarioRegistrado = isset( $_GET["usuarioRegistrado"]) ? $_GET["usuarioRegistrado"] : false;
+            $usuarioIncorrecto = isset( $_GET["usuarioIncorrecto"]) ? $_GET["usuarioIncorrecto"] : false;
+            if($errorBuscar){
                 echo '<h5 class="text-danger">Error al encontrar Heroe</h5>';
+            }elseif ($exitoRegistro){
+                echo '<h5 class="text-success">Se registro el Heroe con exito</h5>';
+            }elseif ($exitoModificar){
+                echo '<h5 class="text-success">Se modifico el Heroe con exito</h5>';
+            }elseif ($exitoEliminar){
+                echo '<h5 class="text-success">Se elimino el Heroe con exito</h5>';
+            } elseif ($errorQuery){
+                echo '<h5 class="text-danger">Ocurrio un error</h5>';
+            } elseif ($usuarioRegistrado){
+                echo '<h5 class="text-success">Se registro con exito</h5>';
+            }elseif ($usuarioIncorrecto){
+                echo '<h5 class="text-danger">El usuario ingresado es incorrecto</h5>';
             }
         ?>
     </div>
@@ -31,7 +42,6 @@ require_once ("header.php");
             ?>
         </div>
     </div>
-</main>
 <?php
 require_once ("footer.php");
 

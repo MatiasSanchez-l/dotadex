@@ -5,7 +5,7 @@ $archivoConfig = "recursos/config.ini";
 $configuracion = parse_ini_file($archivoConfig, true);
 $conexionBDD = new BaseDeDatosClase($configuracion);
 $idHeroeAEliminar = $_GET["botonEliminar"];
-$tabla = $conexionBDD->devolverDatos();
+$tabla = $conexionBDD->devolverDatos("heroes");
 
 for($i = 0; $i<sizeof($tabla); $i++)
 {
@@ -15,7 +15,7 @@ for($i = 0; $i<sizeof($tabla); $i++)
         $sql ='DELETE FROM heroes WHERE heroes.id = '.$idHeroeAEliminar;
         $conexionBDD->aplicarUnQuery($sql);
         unlink($dirireccion);
-        header("Location: index.php");
+        header("Location: index.php?eliminarHeroe=true");
         exit();
     }
 }
