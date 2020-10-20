@@ -11,3 +11,4 @@ $sql = "INSERT INTO usuario(usuario, clave) VALUES ('".$nombreUsuario."','".$cla
 $conexionBDD->aplicarUnQuery($sql);
 
 header("Location: index.php?usuarioRegistrado=true");
+exit();

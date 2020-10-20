@@ -33,12 +33,7 @@ class BaseDeDatosClase
 
     public function aplicarUnQuery($sql){
         $resultadoQuery = $this->conexion->query($sql);
-        if($resultadoQuery){
-            $this->conexion->query($sql);
-        }else{
-            /*echo $this->conexion->errno . " - " . $this->conexion->error ."<br>";
-            echo json_encode($resultadoQuery);
-            echo "muerte";*/
+        if(!$resultadoQuery){
             header("Location: index.php?errorQuery=true");
             exit();
         }

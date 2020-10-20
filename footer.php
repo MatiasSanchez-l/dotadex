@@ -1,7 +1,4 @@
 </main>
-<footer>
-
-</footer>
 <!-- Optional JavaScript -->
 <script src="recursos/js/jquery-3.5.js"></script>
 <script src="recursos/js/script.js"></script>

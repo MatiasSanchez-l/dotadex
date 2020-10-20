@@ -1,9 +1,8 @@
 <?php
 require_once("header.php");
 require_once ("funciones.php");
-?>
-
-<h1 class="text-center text-light">AGREGAR HEROE</h1>
+if(isset($_SESSION["logeado"]) == 1){
+    echo '<h1 class="text-center text-light">AGREGAR HEROE</h1>
 
 <form class="container" method="POST" ENCTYPE="multipart/form-data" action="subirHeroeScript.php">
     <div class="form-group">
@@ -45,9 +44,11 @@ require_once ("funciones.php");
     <div class="text-right">
         <button class="btn btn-azul" type="submit">Enviar</button>
     </div>
-</form>
-
-<?php
+</form>';
+}else{
+    echo '<h2 class="text-center text-danger">Debe ser admin para acceder a esta pagina!</h2>
+<a class="text-center text-classic" href="index.php"><h4>Ir al Inicio</h4></a>';
+}
 require_once("footer.php");
 ?>
 

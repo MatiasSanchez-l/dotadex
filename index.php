@@ -30,11 +30,13 @@ require_once ("header.php");
         ?>
     </div>
     <h1 class="text-center text-light ">HEROES</h1>
-    <div class="text-center">
-        <a href="subirNuevoHeroe.php">
-            <button class="btn btn-azul mt-2 col-sm-11">Agregar Heroe</button>
-        </a>
-    </div>
+    <?php
+        if(isset($_SESSION["logeado"]) == 1){
+            echo '<div class="text-center">
+                    <a href="subirNuevoHeroe.php">
+                        <button class="btn btn-azul mt-2 col-sm-11">Agregar Heroe</button>
+                    </a>
+                  </div>';}?>
     <div class="container mt-5 mb-5">
         <div class="row">
             <?php

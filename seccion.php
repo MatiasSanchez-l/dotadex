@@ -25,11 +25,11 @@ for($i=0; $i < sizeof($tabla); $i++){
         $_SESSION["logeado"] = 1;
         header("Location: index.php");
         exit();
-    }else{
-        header("Location: index.php?usuarioIncorrecto=true");
-        exit();
     }
 }
+
+header("Location: index.php?usuarioIncorrecto=true");
+exit();
 
 
 
